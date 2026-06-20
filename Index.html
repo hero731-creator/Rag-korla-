@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>রাগ করলা নাকি?</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:sans-serif;
+}
+
+body{
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#c00000;
+transition:2s;
+}
+
+.shake{
+animation:shake .1s infinite;
+}
+
+@keyframes shake{
+0%{transform:translate(5px,2px)}
+50%{transform:translate(-5px,-2px)}
+100%{transform:translate(5px,-2px)}
+}
+
+.container{
+text-align:center;
+color:white;
+padding:20px;
+max-width:700px;
+}
+
+h1{
+font-size:48px;
+margin-bottom:25px;
+}
+
+.msg{
+font-size:28px;
+opacity:0;
+transform:translateY(40px);
+transition:1s;
+}
+
+.show{
+opacity:1;
+transform:none;
+}
+
+.switch{
+display:flex;
+justify-content:center;
+gap:15px;
+margin-top:25px;
+flex-wrap:wrap;
+}
+
+button{
+padding:16px 35px;
+font-size:22px;
+border:none;
+border-radius:50px;
+cursor:pointer;
+}
+
+.ok{
+background:white;
+}
+
+.no{
+background:#blue;
+}
+
+#result{
+opacity:0;
+transform:translateX(150px);
+transition:1s;
+}
+
+.open{
+opacity:1 !important;
+transform:none !important;
+}
+
+.emoji{
+position:absolute;
+font-size:45px;
+animation:float 3s linear infinite;
+}
+
+@keyframes float{
+
+from{
+transform:translateY(120vh);
+}
+
+to{
+transform:translateY(-120vh);
+}
+
+}
+
+#nextText{
+margin-top:20px;
+font-size:24px;
+}
+
+</style>
+
+</head>
+
+<body class="shake">
+
+<div class="container">
+
+<h1 id="title">
+😡 রাগ করলা
+</h1>
+
+<div id="msg" class="msg">
+
+<div id="question">
+
+রাগ করলা? 😏
+
+<br><br>
+
+তুমি সবার বিপদে থাকো
+
+<br>
+
+কিন্তু তোমার বিপদের সময় কেউ পাশে থাকে না
+
+<br><br>
+
+<div class="switch">
+
+<button
+class="ok"
+onclick="answer(true)">
+
+✔ ঠিক
+
+</button>
+
+<button
+class="no"
+onclick="answer(false)">
+
+✖ না বেঠিক
+
+</button>
+
+</div>
+
+</div>
+
+<div id="result"></div>
+
+</div>
+
+</div>
+
+
+<audio
+id="boom"
+preload="auto">
+
+<source
+src="./rak.mp3"
+type="audio/mpeg">
+
+</audio>
+
+
+<script>
+
+const boom=
+document.getElementById(
+"boom"
+);
+
+
+function playRag(){
+
+boom.pause();
+
+boom.currentTime=0;
+
+boom.load();
+
+setTimeout(()=>{
+
+boom.play()
+.catch(
+e=>console.log(e)
+);
+
+},300);
+
+}
+
+
+
+for(
+let i=0;
+i<20;
+i++
+){
+
+let e=
+document.createElement(
+"div"
+);
+
+e.className=
+"emoji";
+
+e.innerHTML=
+"😡";
+
+e.style.left=
+Math.random()*100+"vw";
+
+e.style.animationDuration=
+2+
+Math.random()*3
++"s";
+
+document.body
+.appendChild(
+e
+);
+
+}
+
+
+
+setTimeout(()=>{
+
+document.body
+.classList
+.remove(
+"shake"
+);
+
+document
+.getElementById(
+"title"
+)
+.innerHTML=
+
+"😏 রাগ করলা ?";
+
+
+document
+.getElementById(
+"msg"
+)
+.classList
+.add(
+"show"
+);
+
+},2000);
+
+
+
+function answer(ok){
+
+playRag();
+
+let q=
+document
+.getElementById(
+"question"
+);
+
+let r=
+document
+.getElementById(
+"result"
+);
+
+
+q.style.display=
+"none";
+
+
+document
+.getElementById(
+"title"
+)
+.style.display=
+"none";
+
+
+document.body.style.background=
+"linear-gradient(135deg,#442266,#221133)";
+
+
+document
+.querySelectorAll(
+".emoji"
+)
+.forEach(
+e=>{
+e.innerHTML=
+"😂";
+}
+);
+
+
+
+if(ok){
+
+r.innerHTML=
+
+`
+
+bolo bismilla
+
+<br><br>
+
+kotha ti bola valo na kharap ?
+
+<br><br>
+
+<button onclick="valoClick()">
+
+ভালো
+
+</button>
+
+<div id="nextText"></div>
+
+`;
+
+}
+
+else{
+
+r.innerHTML=
+
+`
+
+😆 রাগ করলা 😏
+
+`;
+
+}
+
+
+r.classList
+.add(
+"open"
+);
+
+}
+
+
+
+function valoClick(){
+
+playRag();
+
+document
+.getElementById(
+"nextText"
+)
+.innerHTML=
+
+`
+
+<br>
+
+😏 রাগ করলা
+
+`;
+
+}
+
+</script>
+
+</body>
+
+</html>
